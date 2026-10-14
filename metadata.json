@@ -1,0 +1,6 @@
+{
+  "name": "ReliefLink — Disaster Volunteer Coordination",
+  "description": "A volunteer coordination prototype matching verified disaster relief tasks with volunteers based on skills, time, and safety.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

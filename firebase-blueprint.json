@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with verified OpenID Connect claims, keyed by stable sub identifier",
+      "type": "object",
+      "properties": {
+        "sub": {
+          "type": "string",
+          "description": "Stable OpenID Connect subject identifier (matches request.auth.uid)",
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Google verified email address",
+          "maxLength": 256
+        },
+        "emailVerified": {
+          "type": "boolean",
+          "description": "True if email_verified claim from Google ID token was verified"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's display name from Google profile",
+          "maxLength": 200
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "User profile image URL",
+          "maxLength": 1000
+        },
+        "role": {
+          "type": "string",
+          "description": "Role in the disaster coordination system (coordinator or volunteer)",
+          "maxLength": 50
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the user profile was first created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the user profile was last updated"
+        }
+      },
+      "required": ["sub", "email", "emailVerified", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "Stores user identity records keyed by unique sub claim identifier"
+    }
+  }
+}

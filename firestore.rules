@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny all undefined paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['sub', 'email', 'emailVerified', 'createdAt']) &&
+             data.keys().hasOnly(['sub', 'email', 'emailVerified', 'displayName', 'photoURL', 'role', 'createdAt', 'updatedAt']) &&
+             data.sub is string && data.sub == request.auth.uid &&
+             data.email is string && data.email.size() <= 256 &&
+             data.emailVerified is bool &&
+             (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 200)) &&
+             (!('photoURL' in data) || (data.photoURL is string && data.photoURL.size() <= 1000)) &&
+             (!('role' in data) || (data.role is string && data.role.size() <= 50));
+    }
+
+    // Users collection keyed by stable sub claim identifier
+    match /users/{userId} {
+      allow get: if isOwner(userId) && isValidId(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && isValidId(userId) && isValidUser(incoming()) && incoming().createdAt == request.time;
+      allow update: if isOwner(userId) && isValidId(userId) && isValidUser(incoming()) &&
+                       incoming().sub == existing().sub &&
+                       incoming().createdAt == existing().createdAt &&
+                       incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'photoURL', 'emailVerified', 'role', 'updatedAt']) &&
+                       incoming().updatedAt == request.time;
+      allow delete: if false;
+    }
+  }
+}
