@@ -12,7 +12,8 @@ import { TaskDetailPanel } from './components/TaskDetailPanel';
 import { VolunteerPreferencesForm } from './components/VolunteerPreferencesForm';
 import { TaskMatchingSection } from './components/TaskMatchingSection';
 import { NoCalamityView } from './components/NoCalamityView';
-import { LoginPage } from './components/LoginPage';
+// LoginPage commented out - authentication requirement bypassed
+// import { LoginPage } from './components/LoginPage';
 import { UserIdentityProfile, signOutUser } from './lib/firebase';
 import {
   AlertCircle,
@@ -27,9 +28,18 @@ import {
   Radio,
 } from 'lucide-react';
 
+// Default incident responder profile for direct dashboard access without authentication
+const DEFAULT_RESPONDER_PROFILE: UserIdentityProfile = {
+  sub: 'usr_volunteer_dispatch',
+  email: 'coordinator@relieflink.org',
+  emailVerified: true,
+  displayName: 'Incident Coordinator',
+  role: 'Verified Coordinator',
+};
+
 export default function App() {
-  // Authentication State with Verified OpenID Connect claims & stable sub identifier
-  const [currentUser, setCurrentUser] = useState<UserIdentityProfile | null>(() => {
+  // Authentication State: Auto-initialized with saved profile or default responder profile
+  const [currentUser, setCurrentUser] = useState<UserIdentityProfile>(() => {
     try {
       const savedProfile = localStorage.getItem('relieflink_user_profile');
       if (savedProfile) {
@@ -45,9 +55,9 @@ export default function App() {
           role: 'Verified Coordinator',
         };
       }
-      return null;
+      return DEFAULT_RESPONDER_PROFILE;
     } catch {
-      return null;
+      return DEFAULT_RESPONDER_PROFILE;
     }
   });
 
@@ -190,7 +200,8 @@ export default function App() {
     } catch {
       // ignore
     }
-    setCurrentUser(null);
+    // Reset to default responder session without locking out of dashboard
+    setCurrentUser(DEFAULT_RESPONDER_PROFILE);
   };
 
   const handleLoginSuccess = (profile: UserIdentityProfile) => {
@@ -229,10 +240,16 @@ export default function App() {
     }
   };
 
-  // If not logged in, display the login verification page
+  // --------------------------------------------------------------------------
+  // ROUTING RULE / AUTHENTICATION GATE:
+  // Disabled / commented out: Users are automatically taken to the main
+  // disaster response dashboard/home page without requiring authentication.
+  // --------------------------------------------------------------------------
+  /*
   if (!currentUser) {
     return <LoginPage onLoginSuccess={handleLoginSuccess} />;
   }
+  */
 
   return (
     <div className="min-h-screen bg-[#F4F5F6] text-[#0B0F19] flex flex-col font-sans selection:bg-[#0052CC] selection:text-white">

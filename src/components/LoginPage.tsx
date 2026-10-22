@@ -1,3 +1,15 @@
+/**
+ * ==============================================================================
+ * ReliefLink // Incident Command Authentication Page (LoginPage)
+ * ==============================================================================
+ * NOTE: This page and its authentication checks have been commented out.
+ * The application routing has been updated so that users are automatically
+ * routed to the main incident command dashboard/home page without needing
+ * to authenticate.
+ * ==============================================================================
+ */
+
+/*
 import React, { useState } from 'react';
 import {
   ShieldCheck,
@@ -103,7 +115,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
   return (
     <div className="min-h-screen bg-[#F4F5F6] text-[#0B0F19] flex flex-col font-sans selection:bg-[#0052CC] selection:text-white">
-      {/* Tactical Incident Header Bar */}
+      // Tactical Incident Header Bar
       <div className="bg-[#0B0F19] text-[#F4F5F6] px-4 py-2 text-xs font-mono tracking-wide border-b border-[#0B0F19]">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -120,12 +132,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         </div>
       </div>
 
-      {/* Main Authentication Card */}
+      // Main Authentication Card
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <div className="w-full max-w-md">
-          {/* Heavy Solid Field-Guide Style Container */}
           <div className="bg-white border-2 border-[#0B0F19] p-6 sm:p-8 space-y-6">
-            {/* Header Typography */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[11px] font-mono tracking-widest text-[#0052CC] uppercase font-bold">
@@ -143,7 +153,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </p>
             </div>
 
-            {/* Status Feedback Toast */}
             {statusMessage && (
               <div className="p-3 bg-[#EBF3FF] border-l-2 border-[#0052CC] text-xs text-[#0052CC] flex items-center gap-2">
                 <Sparkles className="w-4 h-4 shrink-0" />
@@ -151,7 +160,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </div>
             )}
 
-            {/* Error Message */}
             {errorMessage && (
               <div className="p-3 bg-[#FEF2F2] border-l-2 border-[#B45309] text-xs text-[#991B1B] flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 text-[#B45309] shrink-0 mt-0.5" />
@@ -159,7 +167,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </div>
             )}
 
-            {/* Primary Action: Official Sign in with Google Button */}
             <div className="space-y-2">
               <button
                 type="button"
@@ -198,7 +205,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </div>
             </div>
 
-            {/* Hairline Divider with Tactical Label */}
             <div className="relative py-1">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-slate-200"></div>
@@ -210,7 +216,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </div>
             </div>
 
-            {/* Direct Email / Password Login Form */}
             <form onSubmit={handleEmailLogin} className="space-y-4">
               <div>
                 <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 font-bold mb-1">
@@ -270,7 +275,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </button>
             </form>
 
-            {/* Architecture Invariants Footnote */}
             <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-mono text-slate-500">
               <span className="flex items-center gap-1.5">
                 <Fingerprint className="w-3 h-3 text-[#0052CC]" />
@@ -285,7 +289,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         </div>
       </div>
 
-      {/* Prominent Prototype Safety Disclaimer */}
       <footer className="border-t border-slate-300 bg-white py-4 px-4 text-center text-xs text-slate-600">
         <div className="max-w-4xl mx-auto">
           <strong>Prototype Disclaimer:</strong> Fictional demonstration data. Calamity status dynamically adjusts to the user's selected location. In a real emergency, follow official instructions from local disaster management authorities.
@@ -294,3 +297,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     </div>
   );
 };
+*/
+
+export const LoginPage = () => null;
